@@ -1,0 +1,136 @@
+﻿@model BisikletEshop.Models.SepetViewModel
+@{
+	ViewBag.Title = "Sepetim";
+	 ViewBag.SepetAdet = Model.SepettekiElemanAdedi;
+}
+
+<script type="text/javascript">
+
+	function is1() {
+		// Get the id from the link
+		var recordToDelete = $(this).attr("data-id");
+		if (recordToDelete != '') {
+			// Perform the ajax post
+			$.post("/Sepet/SepettenUrunSil", { "id": recordToDelete },
+				function (data) {
+
+
+
+					// Successful requests get here
+					// Update the page elements
+					if (data.ilgiliUrunAdedi == 0) {
+						$('#row-' + data.silinenUrunId).fadeOut('slow');
+					} else {
+						$('#item-count-' + data.silinenUrunId).text(data.ilgiliUrunAdedi);
+					}
+					$('#cart-total').text(data.sepetTutari);
+					$('#cart-count').text(data.sepettekiElemanAdedi);
+					$('#update-message').text(data.mesaj);
+					$('#cartInfo').text('Cart: (' + data.sepettekiElemanAdedi + ')');
+				});
+		}
+	}
+
+	$(function () {
+		// Document.ready -> link up remove event handler
+		$(".RemoveLink").click(is1);
+	});
+</script>
+
+
+
+<div class="cart">
+	<div class="container">
+		
+		<div class="cart-top">
+				<a href="Home/Index"><< home</a>
+		</div>
+		
+			<div class="col-md-9 cart-items">
+				<h2>Sepetim</h2>
+				<script>
+					$(document).ready(function (c) {
+						$('.close1').on('click', function (c) {
+							$('.cart-header').fadeOut('slow', function (c) {
+								$('.cart-header').remove();
+							});
+						});
+					});
+				</script>
+				@foreach (SepetElemani item in Model.SepetElemanlari)
+				{
+					<div class="cart-header">
+						<div class="close1"> </div>
+						<div class="cart-sec">
+							<div class="cart-item cyc">
+								<img src="/img/@item.Urun.Foto" />
+							</div>
+							<div class="cart-item-info">
+								<h3>@item.Urun.Ad</h3>
+								<h4><span>₺ </span>@item.SatisFiyati</h4>
+								<p class="qty">Qty ::</p>
+								<input min="1" type="number" id="quantity" name="quantity" value="1" class="form-control input-small">
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				}
+				<script>
+					$(document).ready(function (c) {
+						$('.close2').on('click', function (c) {
+							$('.cart-header2').fadeOut('slow', function (c) {
+								$('.cart-header2').remove();
+							});
+						});
+					});
+				</script>
+				
+			</div>
+
+		<div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
+
+			<div class="d-flex">
+
+				<div class="text-right mt-4">
+					<div>
+						<a class="primary-btn order-submit" asp-area="" asp-controller="Sepet" asp-action="SepetiBosalt">Sepeti Boşalt</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+
+
+		@foreach (SepetElemani item in Model.SepetElemanlari.Take(1))
+		{
+			
+		
+			<div class="col-md-3 cart-total">
+				<a class="continue" href="#">Alışverişe Devam</a>
+				<div class="price-details">
+					<h3>Ücret Detayları</h3>
+					<span>Toplam</span>
+					<span class="total">@item.Urun.Fiyat</span>
+					<div class="clearfix"></div>
+				</div>
+				<h4 class="last-price">TOTAL</h4>
+				<span class="total final">@Model.SepetTutari</span>
+				<div class="clearfix"></div>
+			
+				<div class="total-item">
+					@if (Model.SepetTutari == 0) 
+					{ }
+					else
+					{
+						<a class="primary-btn order-submit" asp-area="" asp-controller="Odeme" asp-action="AddressAndPayment">ÖDE</a>
+					}
+				</div>
+			</div>
+		}
+
+
+	</div>
+</div>
+

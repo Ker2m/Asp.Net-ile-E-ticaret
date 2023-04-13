@@ -1,0 +1,85 @@
+﻿@model List<Urun>
+
+<div class="parts">
+	<div class="container">
+		<h2>Bisiklet-Aksesuar</h2>
+		<div class="bike-parts-sec">
+			<div class="bike-parts acces">
+				<div class="top">
+					<ul>
+						<li><a href="/Home/Index">home</a></li>
+						<li><a href="#"> / </a></li>
+						<li><a href="#">parts</a></li>
+					</ul>
+				</div>
+				<div class="bike-apparels">
+					<div class="parts1">
+						<a href="single.html">
+							@foreach (var item in Model)
+							{
+
+								if (@item.KategoriId == 7)
+								{
+									<div class="part-sec">
+										<img src="/img/@item.Foto" alt="" />
+										<div class="part-info">
+											<a href="#"><h5>@item.Ad<span>@item.Fiyat</span></h5></a>
+											<a class="add-cart" href="/Urun/UrunDetay/@item.UrunId">Hızlı Gör</a>
+											<a class="qck" href="Urun/SepeteUrunEkle/@item.UrunId">Satın Al</a>
+										</div>
+									</div>
+								}
+							}
+
+						</a>
+
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="rsidebar span_1_of_left">
+				<section class="sky-form">
+					<div class="product_right">
+						<h3 class="m_2">Categories</h3>
+						<select class="dropdown" tabindex="10" data-settings='{"wrapperClass":"metro"}'>
+							<option value="0">Frames</option>
+							<option value="1">Back Packs</option>
+							<option value="2">Frame Bags</option>
+							<option value="3">Panniers </option>
+							<option value="4">Saddle Bags</option>
+						</select>
+						<select class="dropdown" tabindex="50" data-settings='{"wrapperClass":"metro"}'>
+							<option value="1">Body Armour</option>
+							<option value="2">Sub Category1</option>
+							<option value="3">Sub Category2</option>
+							<option value="4">Sub Category3</option>
+						</select>
+						<select class="dropdown" tabindex="8" data-settings='{"wrapperClass":"metro"}'>
+							<option value="1">Tools</option>
+							<option value="2">Sub Category1</option>
+							<option value="3">Sub Category2</option>
+							<option value="4">Sub Category3</option>
+						</select>
+						<select class="dropdown" tabindex="8" data-settings='{"wrapperClass":"metro"}'>
+							<option value="1">Services</option>
+							<option value="2">Sub Category1</option>
+							<option value="3">Sub Category2</option>
+							<option value="4">Sub Category3</option>
+						</select>
+						<select class="dropdown" tabindex="8" data-settings='{"wrapperClass":"metro"}'>
+							<option value="1">Materials</option>
+							<option value="2">Sub Category1</option>
+							<option value="3">Sub Category2</option>
+							<option value="4">Sub Category3</option>
+						</select>
+					</div>
+				</section>
+
+			</div>
+
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+
